@@ -36,6 +36,10 @@ def convert_height(height_str):
 df_data['Height_Inches'] = df_data['Height'].apply(convert_height)
 df_data = df_data.drop('Height', axis=1)
 
+idx_to_keep = df_data.groupby(['Player', 'Season Ending Year'])['Games'].idxmax()
+df_data = df_data.loc[idx_to_keep]
+df_data = df_data.sort_index()
+
 df_clean = df_data.dropna(subset=['Player'])
 
 # print(df_clean)
